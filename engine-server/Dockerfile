@@ -1,3 +1,3 @@
 FROM ubuntu:latest
-VOLUME [ "/data" ]
-RUN echo "hello!"
+COPY . .
+RUN apt-get update
