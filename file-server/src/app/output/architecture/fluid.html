@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Using latest stable Fluid Player version 2.x styling -->
+  <link rel="stylesheet" href="https://cdn.fluidplayer.com/v2/current/fluidplayer.min.css">
+  <!-- Include fluidplayer.js and dash.js in your page -->
+  <script src="https://cdn.fluidplayer.com/v2/current/fluidplayer.min.js"></script>
+
+  <title>Auto-DASH-HLS Fluid-Player</title>
+</head>
+
+<body>
+  <main role="main" id="main">
+    <video id="player" controls>
+      <!-- DASH-Playlist location -->
+      <source src="playlist.mpd" type="application/dash+xml">
+      <!-- HLS-Playlist location -->
+      <source src="playlist.m3u8" type="application/x-mpegURL">
+      <p>
+        To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video.
+      </p>
+    </video>
+  </main>
+
+  <script>
+    /* Initialize Fluid Player */
+    fluidPlayer(
+      'player',
+      /* Options */
+      {
+        layoutControls: {
+          /* location of .vtt file containing the thumbnails */
+          timelinePreview: {
+              file: 'thumbnails/thumbnails.vtt',
+              spriteRelativePath: true,
+              type: 'VTT'
+          },
+          /* theme */
+          layout: 'default',
+          /* enable responsive behavior */
+          fillToContainer: true, /* Default true */
+          posterImage: 'thumbnails/poster.png' /* Default false */
+        }
+      }
+    );
+  </script>
+</html>
