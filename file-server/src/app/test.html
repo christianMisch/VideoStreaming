@@ -127,14 +127,14 @@
         //scene.createDefaultCameraOrLight(true, true, true);
         //scene.createDefaultEnvironment();
         meshes.forEach((mesh) => mesh.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02));
-        meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(-1, 0, 0.02));
+        meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(-1.5, 0, 0.02));
       });
 
       BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/Chair/", "Chair.obj", scene, function (meshes) {
         //scene.createDefaultCameraOrLight(true, true, true);
         //scene.createDefaultEnvironment();
         meshes.forEach((mesh) => mesh.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02));
-        meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(1, 0, 0.02));
+        meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(0.75, 0, 0.02));
       });
 
       // camera
