@@ -90,10 +90,10 @@
       var scene = new BABYLON.Scene(engine);
 
       // This is where you create and manipulate meshes
-      var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 1.7, height: 1 }, scene);
+      var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 3, height: 1.75 }, scene);
       myPlane.rotate(BABYLON.Axis.Z, Math.PI, BABYLON.Space.WORLD);
       myPlane.rotate(BABYLON.Axis.Y, Math.PI, BABYLON.Space.WORLD);
-      myPlane.position = new BABYLON.Vector3(-0.5, 1, 1);
+      myPlane.position = new BABYLON.Vector3(-0.5, 1.5, 1);
 
       // Video material
       var videoMat = new BABYLON.StandardMaterial("textVid", scene);
