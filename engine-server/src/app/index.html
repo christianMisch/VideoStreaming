@@ -68,7 +68,7 @@
       var indices = [];
       var res = earcut(this._epoints, this._eholes, 2);
       for (var i = res.length; i > 0; i--) {
-        indices.push(res[i - 1]);
+        indices.push(res[i - 1]); 
       };
       return { positions: positions, indices: indices };
     };
@@ -128,6 +128,12 @@
         //scene.createDefaultEnvironment();
         meshes.forEach((mesh) => mesh.scaling = new BABYLON.Vector3(0.02, 0.02, 0.02));
         meshes.forEach((mesh) => mesh.position = new BABYLON.Vector3(-1.5, 0, 0.02));
+
+        // get the sample texture for the chair
+        var materialChair = new BABYLON.StandardMaterial("https://www.babylonjs-playground.com/textures/amiga.jpg", scene);
+        materialChair.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/amiga.jpg", scene);
+        // mesh will render the sample texture
+        meshes.forEach((mesh) => mesh.material = materialChair);
       });
 
       BABYLON.SceneLoader.ImportMesh("", "https://models.babylonjs.com/Chair/", "Chair.obj", scene, function (meshes) {
