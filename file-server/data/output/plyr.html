@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Using latest stable Plyr version 3.x styling -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css">
+
+  <!-- Include plyr.js and dash.js in your page -->
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.min.js"></script>
+  <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <!-- Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) -->
+  <script src="https://cdn.jsdelivr.net/npm/rangetouch/dist/rangetouch.js" async></script>
+  <!-- Polyfills -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent"></script>
+
+  <title>Auto-DASH-HLS Plyr Player</title>
+</head>
+
+<body>
+  <main role="main" id="main">
+    <video id="player" controls poster="thumbnails/poster.png">
+      <!-- HLS-Playlist location -->
+      <source src="playlist.m3u8" type="application/x-mpegURL">
+        <p>
+          To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video.
+        </p>
+    </video>
+  </main>
+
+  <script>
+    video = document.querySelector('#player');
+    /* Switch to DASH-Stream, if supported */
+    if ( typeof ( window.MediaSource || window.WebKitMediaSource ) === "function" ) {
+      (function () {
+        /* DASH-Playlist location */
+        var mpd = "playlist.mpd",
+            dash = dashjs.MediaPlayer().create();
+
+        dash.initialize(video, mpd, false);
+      })();
+    };
+    /* Initialize Plyr Player */
+    const player = new Plyr('#player', {
+      /* Options */
+      "fullscreen": { enabled: true, fallback: true, iosNative: true },
+      "previewThumbnails": { enabled: true, src: 'thumbnails/thumbnails.vtt' }
+    });
+  </script>
+
+</body>
+
+</html>
