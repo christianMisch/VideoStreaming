@@ -1,6 +1,7 @@
 FROM python:latest
 ENV PORT=9000
-COPY /src/app /app/
+COPY src/app/ /app/
 RUN apt-get update
-# WORKDIR /app/
+# jumps straight into app folder to serve index.html
+WORKDIR /app/
 CMD [ "sh", "-c", "python -m http.server ${PORT}" ]

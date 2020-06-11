@@ -1,5 +1,7 @@
-FROM nginx
-COPY /data/output /app/
-COPY default_location /etc/nginx/vhost.d/default_location
-# RUN apt-get update
-ENTRYPOINT ["nginx","-g","daemon off;"]
+FROM httpd:2.4
+
+COPY output/ /usr/local/apache2/htdocs/
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+# check syntax e.g. in httpd.conf file after deployment
+# CMD [ "apachectl", "-t" ]
+

@@ -81,7 +81,7 @@
     var createScene = function () {
       var stream1 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestARD.mpd";
       var stream2 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd";
-      var stream3 = "http://0.0.0.0:9000/app/output/architecture/playlist.mpd";
+      var stream3 = "http://localhost:8080/playlist.mpd";
       var stream4 = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
       var video = $("<video data-dashjs-player autoplay src='" + stream3 + "'></video>");
       $("body").append(video);
