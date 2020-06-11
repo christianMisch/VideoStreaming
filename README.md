@@ -1,15 +1,24 @@
 # VideoStreaming
 Integrate video streaming into a game engine.
 
+## Development
+
+To start the webpack-dev-server run `npm start` in the `engine-server` folder
+
 ## How to run the app
-1. Build the image (inside the engine-server folder)
 
-docker build -t engine-image
+### file server (inside the `file-server` folder)
 
-2. Run the container
+1. `docker build -t web-server-image .`
 
-docker run -it --rm --name babylon -p 9000:9000 engine-image
+2. `docker run -it --rm --name web-server -p 8080:80 web-server-image`
 
-3. Go to localhost:9000 in the browser
+### engine server (inside the `engine-server` folder)
+
+1. `docker build -t engine-image`
+
+2. `docker run -it --rm --name babylon -p 9000:9000 engine-image`
+
+3. Go to http://localhost:9000 in the browser
 
 
