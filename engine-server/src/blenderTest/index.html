@@ -68,15 +68,17 @@
             var scene = new BABYLON.Scene(engine);
         
             // Add a camera to the scene and attach it to the canvas
-            var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
+            var cam_position = new BABYLON.Vector3(0, 5, -6);
+            var camera = new BABYLON.ArcRotateCamera("Camera", 270*Math.PI/180, Math.PI / 2, 2, cam_position, scene);
+            // camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius = 1;
             camera.attachControl(canvas, true);
         
             // Add lights to the scene
             var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
         
             // This is where you create and manipulate meshes
-            myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", {width: 1.7, height: 1}, scene);
-            myPlane.rotate(BABYLON.Axis.Z, Math.PI, BABYLON.Space.WORLD);
+            myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", {width: 5.1, height: 3}, scene);
+            myPlane.rotate(BABYLON.Axis.X, Math.PI , BABYLON.Space.WORLD);
             
             // Video material
             videoMat = new BABYLON.StandardMaterial("textVid", scene);
@@ -87,6 +89,7 @@
             videoMat.diffuseTexture = videoTexture;
             videoMat.emissiveColor = BABYLON.Color3.White();
             myPlane.material = videoMat;
+            myPlane.position = new BABYLON.Vector3(0, 5, 7);
         	
             var htmlVideo = videoTexture.video;
             htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -105,30 +108,13 @@
                     htmlVideo.pause();
                 }
             }
-        
-            // s.onload = function() {
-            //     //any code calling on loaded file code
-            // }    
 
-            if (BABYLON.Engine.isSupported()) {       
-                // var canvas = document.getElementById("renderCanvas");        
-                var engine = new BABYLON.Engine(canvas, true);                
-                //Import scene        
-                BABYLON.SceneLoader.Load("", "TVroom.babylon", engine, function(newScene){            
-                    if (!newScene.activeCamera) {                
-                         newScene.activeCamera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(0, 5,-10), newScene);
-                    }               
-                    newScene.executeWhenReady(function() {                    
-                        newScene.activeCamera.attachControl(canvas);                                        
-                        // Once the scene is loaded, just register a render loop to render it                     
-                        engine.runRenderLoop(function() {                        
-                             newScene.render();                     
-                        });                
-                    });            
-                });                           
-            }
-
-
+            BABYLON.SceneLoader.Append(
+                "/",
+                "TVroom.babylon",
+                scene
+            );
+            
             return scene;
         };
 var engine;

@@ -1,4 +1,4 @@
-{"producer":{"name":"Blender","version":"2.82 (sub 7)","exporter_version":"6.4.0","file":"TVroom.babylon"},
+{"producer":{"name":"Blender","version":"2.82 (sub 7)","exporter_version":"6.4.0","file":"TVroom1.babylon"},
 "autoClear":true,"clearColor":[0.0509,0.0509,0.0509],"gravity":[0,-9.81,0],
 "materials":[{"name":"Material","id":"Material","customType":"BABYLON.PBRMaterial","backFaceCulling":true,"checkReadyOnlyOnce":false,"maxSimultaneousLights":4,"environmentIntensity":1,"albedo":[0.9551,0.7453,0.2884],"reflectivity":[0.5,0.5,0.5],"roughness":0.4,"alpha":1,"transparencyMode":0,"alphaCutOff":0.4,"metallic":0},
 {"name":"None","id":"None","customType":"BABYLON.PBRMaterial","backFaceCulling":true,"checkReadyOnlyOnce":false,"maxSimultaneousLights":4,"environmentIntensity":1,"albedo":[0.8,0.7173,0.5001],"reflectivity":[0.8,0.8,0.8],"roughness":1,"alpha":1,"transparencyMode":0,"alphaCutOff":0.4,"metallic":0},
@@ -949,6 +949,6 @@
 ],
 "morphTargetManagers":[],
 "cameras":[],"activeCameraID":"Camera",
-"lights":[{"name":"Light","id":"Light","type":0,"position":[4.8095,9.7763,1.3705],"range":40,"intensityMode":0,"intensity":1,"diffuse":[1,1,1],"specular":[1,1,1],"radius":0.3}],
+"lights":[{"name":"Point","id":"Point","type":0,"position":[5.658,7.2952,5.1057],"range":20.15,"intensityMode":0,"intensity":60,"diffuse":[1,1,1],"specular":[1,1,1],"radius":2,"includedOnlyMeshesIds":["Cube","Lamp_Cone","Plane","Plane.001","Plane.002","Plane.003","Plane.004","Plane.005","Pillows_Cube.004","Couch_Plane","Cushions_Cube"]}],
 "shadowGenerators":[]
 }
