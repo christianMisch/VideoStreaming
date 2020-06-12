@@ -1,6 +1,7 @@
-FROM python:latest
-ENV PORT=9100
-COPY . /app/
-WORKDIR /app/
-RUN apt-get update
-CMD [ "sh", "-c", "python -m http.server ${PORT}" ]
+FROM httpd:2.4
+
+COPY output/ /usr/local/apache2/htdocs/
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+# check syntax e.g. in httpd.conf file after deployment
+# CMD [ "apachectl", "-t" ]
+

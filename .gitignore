@@ -1,2 +1,8 @@
 # System files
 .DS_STORE
+
+# node_modules
+node_modules
+
+# webpack dist folder
+dist

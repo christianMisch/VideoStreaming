@@ -1,6 +1,10 @@
-FROM python:latest
+FROM node
 ENV PORT=9000
-COPY /src/app /app/
-RUN apt-get update
+
 WORKDIR /app/
-CMD [ "sh", "-c", "python -m http.server ${PORT}" ]
+COPY . /app/
+
+RUN npm install
+RUN npm run build
+
+CMD [ "node", "server.js" ]
