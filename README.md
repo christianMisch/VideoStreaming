@@ -11,7 +11,7 @@ To start the webpack-dev-server run `npm start` in the `engine-server` folder
 
 1. `docker build -t web-server-image .`
 
-2. `docker run -it --rm --name web-server -p 8080:80 web-server-image`
+2. `docker run -i --rm --name web-server -p 8080:80 web-server-image`
 
 ### engine server (inside the `engine-server` folder)
 
