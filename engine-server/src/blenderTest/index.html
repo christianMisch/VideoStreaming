@@ -60,8 +60,10 @@
             // engine.displayLoadingUI();
             var stream1 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestARD.mpd";
             var stream2 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd";
-            var stream3 = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
-            var video = $("<video data-dashjs-player autoplay src='"+stream3+"'></video>");
+            var stream3 = "http://localhost:8080/playlist.mpd";
+            var stream4 = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+
+            var video = $("<video data-dashjs-player autoplay src='" + stream3 + "'></video>");
             $("body").append(video);
             console.log("Adding HTML video element");
             // Create the scene space
@@ -89,7 +91,7 @@
             videoMat.diffuseTexture = videoTexture;
             videoMat.emissiveColor = BABYLON.Color3.White();
             myPlane.material = videoMat;
-            myPlane.position = new BABYLON.Vector3(0, 5, 7);
+            myPlane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
         	
             var htmlVideo = videoTexture.video;
             htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -110,7 +112,7 @@
             }
 
             BABYLON.SceneLoader.Append(
-                "/",
+                "assets/",
                 "TVroom.babylon",
                 scene
             );
