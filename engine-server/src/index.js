@@ -43,10 +43,13 @@ var createScene = function () {
   var video = document.querySelector('video');
   var videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
 
+  BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
+    videoMat.diffuseTexture = videoTexture;
+    videoMat.emissiveColor = BABYLON.Color3.White();
+    myPlane.material = videoMat;
+  }, { maxWidth: 256, maxHeight: 256 });
+
   videoMat.backFaceCulling = false;
-  videoMat.diffuseTexture = videoTexture;
-  videoMat.emissiveColor = BABYLON.Color3.White();
-  myPlane.material = videoMat;
   myPlane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
 
   var htmlVideo = videoTexture.video;
@@ -59,19 +62,33 @@ var createScene = function () {
     engine.hideLoadingUI();
   });
 
+  let isRunning = true;
+
   scene.onPointerUp = function () {
-    if (htmlVideo.paused) {
-      htmlVideo.play();
+    if (isRunning) {
+      videoMat.diffuseTexture = videoTexture;
+      videoMat.emissiveColor = BABYLON.Color3.White();
+      myPlane.material = videoMat;
+      isRunning = false;
     } else {
-      htmlVideo.pause();
+      BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
+        videoMat.diffuseTexture = videoTexture;
+        myPlane.material = videoMat;
+      }, { maxWidth: 256, maxHeight: 256 });
+      isRunning = true;
     }
+    // if (htmlVideo.paused) {
+    //   htmlVideo.play();
+    // } else {
+    //   htmlVideo.pause();
+    // }
   }
 
   const blenderPath = 'http://localhost:8080/blender/';
   BABYLON.SceneLoader.Append(
     blenderPath,
     'TVroom.babylon',
-    scene, function(scene) {
+    scene, function (scene) {
       console.log('level loaded!');
     }
   );
