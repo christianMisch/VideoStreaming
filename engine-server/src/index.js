@@ -1,3 +1,5 @@
+import 'babylonjs-inspector';
+
 var canvas = document.getElementById("renderCanvas");
 
 var engine = null;
@@ -33,11 +35,11 @@ var createScene = function () {
   var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
 
   // This is where you create and manipulate meshes
-  myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
+  var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
   myPlane.rotate(BABYLON.Axis.X, Math.PI, BABYLON.Space.WORLD);
 
   // Video material
-  videoMat = new BABYLON.StandardMaterial("textVid", scene);
+  var videoMat = new BABYLON.StandardMaterial("textVid", scene);
   var video = document.querySelector('video');
   var videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
 
@@ -74,6 +76,14 @@ var createScene = function () {
     }
   );
 
+  // with assets manager
+  // var assetsManager = new BABYLON.AssetsManager(scene);
+  // var blenderTask = assetsManager.addMeshTask('blender level', '', blenderPath, 'TVroom.babylon');
+  // blenderTask.onSuccess = function(task) { console.log('success', task) };
+  // blenderTask.onError = function(task, message, exception) { console.log('error', task, message, exception) };
+  // assetsManager.load();
+
+
   return scene;
 };
 
@@ -85,8 +95,8 @@ try {
   engine = createDefaultEngine();
 }
 if (!engine) throw 'engine should not be null.';
-scene = createScene();;
-sceneToRender = scene
+scene = createScene();
+sceneToRender = scene;
 
 engine.runRenderLoop(function () {
   if (sceneToRender) {
