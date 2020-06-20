@@ -13,14 +13,19 @@ document.head.appendChild(s);
 
 var createScene = function () {
 
-  // engine.displayLoadingUI();
-  var stream1 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestARD.mpd";
-  var stream2 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd";
-  var stream3 = "http://localhost:8080/playlist.mpd";
-  var stream4 = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+  let activeVideoIdx = 1;
 
-  var video = $("<video data-dashjs-player autoplay src='" + stream3 + "'></video>");
-  $("body").append(video);
+  // engine.displayLoadingUI();
+  var stream1 = "http://localhost:8080/playlist.mpd";
+  var stream2 = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+  // var stream3 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestARD.mpd";
+  // var stream4 = "https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd";
+
+  var video1 = $("<video data-dashjs-player autoplay src='" + stream1 + "'></video>");
+  var video2 = $("<video data-dashjs-player src='" + stream2 + "'></video>");
+
+  $("body").append(video1);
+  $("body").append(video2);
   console.log("Adding HTML video element");
   // Create the scene space
   var scene = new BABYLON.Scene(engine);
@@ -43,13 +48,10 @@ var createScene = function () {
   var video = document.querySelector('video');
   var videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
 
-  BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
-    videoMat.diffuseTexture = videoTexture;
-    videoMat.emissiveColor = BABYLON.Color3.White();
-    myPlane.material = videoMat;
-  }, { maxWidth: 256, maxHeight: 256 });
-
   videoMat.backFaceCulling = false;
+  videoMat.diffuseTexture = videoTexture;
+  videoMat.emissiveColor = BABYLON.Color3.White();
+  myPlane.material = videoMat;
   myPlane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
 
   var htmlVideo = videoTexture.video;
@@ -65,24 +67,43 @@ var createScene = function () {
   let isRunning = true;
 
   scene.onPointerUp = function () {
+    // activeVideoIdx++;
+    // if (activeVideoIdx === 1) {
+
+    // } else if (activeVideoIdx === 2) {
+
+    // } else {
+
+    // }
     if (isRunning) {
-      videoMat.diffuseTexture = videoTexture;
-      videoMat.emissiveColor = BABYLON.Color3.White();
-      myPlane.material = videoMat;
-      isRunning = false;
-    } else {
       BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
         videoMat.diffuseTexture = videoTexture;
+        videoMat.diffuseColor = BABYLON.Color3.White();
         myPlane.material = videoMat;
       }, { maxWidth: 256, maxHeight: 256 });
+      htmlVideo.pause();
+      isRunning = false;
+    } else {
+      videoMat.diffuseTexture = videoTexture;
+      videoMat.emissiveColor = BABYLON.Color3.White();
+      htmlVideo.play();
       isRunning = true;
     }
-    // if (htmlVideo.paused) {
-    //   htmlVideo.play();
-    // } else {
-    //   htmlVideo.pause();
-    // }
   }
+
+  // var plane = BABYLON.Mesh.CreatePlane("sphere1", 7, scene);
+  // plane.rotation.z = Math.PI;
+
+  //   // Move the sphere upward 1/2 its height
+  //   plane.position.y = 1;
+
+  // var mat = new BABYLON.StandardMaterial("mat", scene);
+  //   mat.diffuseColor = BABYLON.Color3.White();
+
+  // BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
+  //   mat.emissiveTexture = videoTexture;
+  //   plane.material = mat;
+  // }, { maxWidth: 256, maxHeight: 256 });
 
   const blenderPath = 'http://localhost:8080/blender/';
   BABYLON.SceneLoader.Append(
