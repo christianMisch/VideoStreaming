@@ -65,10 +65,14 @@ var createScene = function () {
     }
   }
 
+  const blenderPath = 'http://localhost:9000/blender/';
+
   BABYLON.SceneLoader.Append(
-    "assets/blender/",
+    blenderPath,
     "TVroom.babylon",
-    scene
+    scene, function(scene) {
+      console.log('level loaded!')
+    }
   );
 
   return scene;
