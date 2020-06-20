@@ -21,4 +21,10 @@ To start the webpack-dev-server run `npm start` in the `engine-server` folder
 
 3. Go to http://localhost:9000 in the browser
 
+### blender level
+
+1. If you want to create your own level you need to use the [BlenderExporter](https://github.com/BabylonJS/BlenderExporter).
+
+2. Once you have generated a `.babylon` file you have to place is under  `file-server/output/blender/` to be correctly imported by the engine server.
+
 

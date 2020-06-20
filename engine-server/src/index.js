@@ -65,7 +65,6 @@ var createScene = function () {
     }
   }
 
-  // const blenderPath = 'http://localhost:9000/blender/';
   const blenderPath = 'http://localhost:8080/blender/';
   BABYLON.SceneLoader.Append(
     blenderPath,
@@ -77,6 +76,7 @@ var createScene = function () {
 
   return scene;
 };
+
 var engine;
 try {
   engine = createDefaultEngine();
