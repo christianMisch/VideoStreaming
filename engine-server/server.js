@@ -1,5 +1,5 @@
 const express = require('express');
-const process = require('process')
+const process = require('process');
 const app = express();
 
 const port = 9000;
