@@ -65,13 +65,13 @@ var createScene = function () {
     }
   }
 
-  const blenderPath = 'http://localhost:9000/blender/';
-
+  // const blenderPath = 'http://localhost:9000/blender/';
+  const blenderPath = 'http://localhost:8080/blender/';
   BABYLON.SceneLoader.Append(
     blenderPath,
-    "TVroom.babylon",
+    'TVroom.babylon',
     scene, function(scene) {
-      console.log('level loaded!')
+      console.log('level loaded!');
     }
   );
 
