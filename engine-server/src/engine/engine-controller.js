@@ -50,8 +50,8 @@ export class EngineController {
   }
 
   initCamera(scene, canvas) {
-    let cameraController = new CameraController(scene, canvas);
-    cameraController.initCamera();
+    let cameraController = new CameraController();
+    cameraController.initCamera(scene, canvas);
   }
 
   createDefaultEngine() { 

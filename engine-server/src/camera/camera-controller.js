@@ -1,24 +1,21 @@
 export class CameraController {
 
-  constructor(scene, canvas) {
-    this.scene = scene;
-    this.canvas = canvas;
-  }
+  initCamera(scene, canvas) {
 
-  initCamera() {
-
-    console.log('canvas', this.canvas, this.scene)
     // Add a camera to the scene and attach it to the canvas
-    var cam_position = new BABYLON.Vector3(0, 5, -6);
+    const cam_position = new BABYLON.Vector3(0, 5, -6);
     // var camera = new BABYLON.ArcRotateCamera("Camera", 270 * Math.PI / 180, Math.PI / 2, 2, cam_position, scene);
-    var camera = new BABYLON.UniversalCamera("MyCamera", cam_position, this.scene);
+    const camera = new BABYLON.UniversalCamera("MyCamera", cam_position, scene);
     camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius = 1;
-    camera.attachControl(this.canvas, true);
+    camera.attachControl(canvas, true);
     camera.speed = 0.02;
     camera.angularSpeed = 0.05;
     camera.angle = Math.PI / 2;
     camera.direction = new BABYLON.Vector3(Math.cos(camera.angle), 0, Math.sin(camera.angle));
+    this.inputCameraControl(camera);
+  }
 
+  inputCameraControl(camera) {
     /* New Input Management for Camera */
 
     //First remove the default management.
@@ -135,5 +132,7 @@ export class CameraController {
     //Add the new keys input manager to the camera.
     camera.inputs.add(new FreeCameraKeyboardWalkInput());
   }
+
+
 
 }

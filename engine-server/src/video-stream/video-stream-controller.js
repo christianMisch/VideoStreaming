@@ -6,9 +6,7 @@ export class VideoStreamController {
     s.src = url;
     document.head.appendChild(s);
 
-    /* ============== VIDEO STREAM ============== */
-
-    let activeVideoIdx = 1;
+    // let activeVideoIdx = 1;
 
     // engine.displayLoadingUI();
     var stream1 = "http://localhost:8080/playlist.mpd";
