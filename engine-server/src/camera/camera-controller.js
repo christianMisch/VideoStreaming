@@ -5,9 +5,16 @@ export class CameraController {
     // Add a camera to the scene and attach it to the canvas
     const cam_position = new BABYLON.Vector3(0, 5, -6);
     // var camera = new BABYLON.ArcRotateCamera("Camera", 270 * Math.PI / 180, Math.PI / 2, 2, cam_position, scene);
-    const camera = new BABYLON.UniversalCamera("MyCamera", cam_position, scene);
-    camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius = 1;
+    const camera = new BABYLON.FreeCamera("MyCamera", cam_position, scene);
+    // camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius = 1;
+    camera.minZ = .1;
     camera.attachControl(canvas, true);
+
+    //Then apply collisions and gravity to the active camera
+    
+    camera.checkCollisions = true;
+    camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+
     camera.speed = 0.02;
     camera.angularSpeed = 0.05;
     camera.angle = Math.PI / 2;
