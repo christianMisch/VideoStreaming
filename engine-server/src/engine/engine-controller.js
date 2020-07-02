@@ -1,38 +1,36 @@
-import 'babylonjs-inspector';
 import { CameraController } from '../camera/camera-controller';
 import { VideoStreamController } from '../video-stream/video-stream-controller';
+import { canvas } from '../util/canvas-utils';
 
+/** Singleton class which manages the engine */
 export class EngineController {
 
   constructor() {
     if (!EngineController.instance) {
       EngineController.instance = this;
-      this.canvas = document.getElementById("renderCanvas");
-      console.log(this.canvas);
-      this.engine = {};
-      this.scene = {};
-    } else {
-      return EngineController.instance;
     }
+    return EngineController.instance;
   }
 
   launchApp() {
-    this.createEngine();
+    let [engine, scene] = this.initEngine();
+    this.initCamera(scene, canvas);
+    this.initVideoStream(scene, engine);
   }
 
-  createEngine() {
-    let sceneToRender;
+  initEngine() {
+    let engine;
     try {
-      this.engine = this.createDefaultEngine();
+      engine = this.createDefaultEngine();
     } catch (e) {
       console.log("the available createEngine function failed. Creating the default engine instead");
-      this.engine = this.createDefaultEngine();
+      engine = this.createDefaultEngine();
     }
-    if (!this.engine) throw 'engine should not be null.';
-    this.scene = this.createScene(this.engine);
-    sceneToRender = this.scene;
+    if (!engine) throw 'engine should not be null.';
+    let scene = this.createScene(engine);
+    let sceneToRender = scene;
 
-    this.engine.runRenderLoop(function () {
+    engine.runRenderLoop(function () {
       if (sceneToRender) {
         sceneToRender.render();
       }
@@ -40,37 +38,46 @@ export class EngineController {
 
     // Resize
     window.addEventListener("resize", function () {
-      console.log(this.engine)
-      this.engine.resize();
+      engine.resize();
     });
+
+    return [engine, scene];
+  }
+
+  initVideoStream(scene, engine) {
+    let videoController = new VideoStreamController();
+    videoController.initVideoStream(scene, engine);
+  }
+
+  initCamera(scene, canvas) {
+    let cameraController = new CameraController(scene, canvas);
+    cameraController.initCamera();
   }
 
   createDefaultEngine() { 
-    return new BABYLON.Engine(this.canvas, true, { preserveDrawingBuffer: true, stencil: true }); 
-  };
+    return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); 
+  }
 
-  createScene() {
+  createScene(engine) {
     // Create the scene space
-    this.scene = new BABYLON.Scene(this.engine);
-    console.log('create scene', this.engine, this.scene)
-    let cameraController = new CameraController(this.scene, this.canvas);
-    cameraController.initCamera();
-  
+    var scene = new BABYLON.Scene(engine);
     // Add lights to the scene
-    var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), this.scene);
-  
+    var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
+    // Add blender level to the scene
+    this.addBlenderLevel(scene);
+    return scene;
+  }
+
+  addBlenderLevel(scene) {
     const blenderPath = 'http://localhost:8080/blender/';
     BABYLON.SceneLoader.Append(
       blenderPath,
       'TVroom.babylon',
-      this.scene, function (scene) {
-        console.log('level loaded!');
+      scene, function (_) {
+        console.log('Blender level successfully loaded!');
       }
     );
 
-    let videoController = new VideoStreamController();
-    videoController.initVideoStream();
-  
     // with assets manager
     // var assetsManager = new BABYLON.AssetsManager(scene);
     // var blenderTask = assetsManager.addMeshTask('blender level', '', blenderPath, 'TVroom.babylon');

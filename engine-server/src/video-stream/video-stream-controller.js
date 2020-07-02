@@ -1,9 +1,6 @@
-import { EngineController } from '../engine/engine-controller';
-
 export class VideoStreamController {
 
-  initVideoStream() {
-    const engineController = new EngineController();
+  initVideoStream(scene, engine) {
     var url = "https://cdn.dashjs.org/latest/dash.all.min.js";
     var s = document.createElement("script");
     s.src = url;
@@ -28,14 +25,14 @@ export class VideoStreamController {
 
 
     // This is where you create and manipulate meshes
-    console.log('video-controller', engineController.scene)
-    var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, engineController.scene);
+    console.log('video-controller', scene)
+    var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
     myPlane.rotate(BABYLON.Axis.X, Math.PI, BABYLON.Space.WORLD);
 
     // Video material
-    var videoMat = new BABYLON.StandardMaterial("textVid", engineController.scene);
+    var videoMat = new BABYLON.StandardMaterial("textVid", scene);
     var video = document.querySelector('video');
-    var videoTexture = new BABYLON.VideoTexture('video', video, engineController.scene, true, true);
+    var videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
 
     videoMat.backFaceCulling = false;
     videoMat.diffuseTexture = videoTexture;
@@ -50,12 +47,12 @@ export class VideoStreamController {
     htmlVideo.setAttribute('autoplay', 'false');
 
     videoTexture.onLoadObservable.add(function () {
-      engineController.engine.hideLoadingUI();
+      engine.hideLoadingUI();
     });
 
     let isRunning = true;
 
-    engineController.scene.onPointerUp = function () {
+    scene.onPointerUp = function () {
       // activeVideoIdx++;
       // if (activeVideoIdx === 1) {
 

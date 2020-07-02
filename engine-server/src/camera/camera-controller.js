@@ -7,7 +7,7 @@ export class CameraController {
 
   initCamera() {
 
-    console.log('canvas', this.canvas)
+    console.log('canvas', this.canvas, this.scene)
     // Add a camera to the scene and attach it to the canvas
     var cam_position = new BABYLON.Vector3(0, 5, -6);
     // var camera = new BABYLON.ArcRotateCamera("Camera", 270 * Math.PI / 180, Math.PI / 2, 2, cam_position, scene);
