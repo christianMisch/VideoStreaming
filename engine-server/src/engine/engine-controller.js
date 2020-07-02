@@ -65,6 +65,8 @@ export class EngineController {
     var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
     // Add blender level to the scene
     this.addBlenderLevel(scene);
+    // Enable Collisions
+    scene.collisionsEnabled = true;
     return scene;
   }
 
@@ -75,6 +77,7 @@ export class EngineController {
       'TVroom.babylon',
       scene, function (_) {
         console.log('Blender level successfully loaded!');
+        scene.checkCollisions = true;
       }
     );
 
