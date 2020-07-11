@@ -20,6 +20,7 @@ export class CameraController {
     camera.angle = Math.PI / 2;
     camera.direction = new BABYLON.Vector3(Math.cos(camera.angle), 0, Math.sin(camera.angle));
     this.inputCameraControl(camera);
+    // scene.createDefaultCameraOrLight(true, true, true);
   }
 
   inputCameraControl(camera) {

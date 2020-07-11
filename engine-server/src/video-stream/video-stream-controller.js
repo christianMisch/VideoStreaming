@@ -6,7 +6,7 @@ export class VideoStreamController {
     const myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
     myPlane.rotate(BABYLON.Axis.X, Math.PI, BABYLON.Space.WORLD);
 
-    const videoTexture = this.playVideo(0, myPlane, scene)
+    const videoTexture = playVideo(0, myPlane, scene)
 
     videoTexture.onLoadObservable.add(function () {
       engine.hideLoadingUI();
@@ -68,7 +68,7 @@ export class VideoStreamController {
     const video2 = $('<video data-dashjs-player src="' + stream2 + '"></video>');
     const video3 = $('<video data-dashjs-player src="' + stream3 + '"></video>');
     const video4 = $('<video data-dashjs-player src="' + stream4 + '"></video>');
-    
+
     const videos = [video1, video2, video3, video4];
     for (let idx in videos) {
       $('body').append(videos[idx]);
@@ -77,26 +77,27 @@ export class VideoStreamController {
     console.log('Adding HTML video elements');
   }
 
-  playVideo(idx, plane ,scene) {
-    // Video material
-    const videoMat = new BABYLON.StandardMaterial("textVid", scene);
-    const video = $('video')[idx];
-    console.log(video)
-    const videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
-
-    videoMat.backFaceCulling = false;
-    videoMat.diffuseTexture = videoTexture;
-    videoMat.emissiveColor = BABYLON.Color3.White();
-    plane.material = videoMat;
-    plane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
-
-    const htmlVideo = videoTexture.video;
-    htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
-    htmlVideo.setAttribute('playsinline', 'true');
-    htmlVideo.setAttribute('muted', 'true');
-    htmlVideo.setAttribute('autoplay', 'false');
-
-    return videoTexture;
-  }
-
 }
+
+export function playVideo(idx, plane, scene) {
+  // Video material
+  const videoMat = new BABYLON.StandardMaterial("textVid", scene);
+  const video = $('video')[idx];
+  console.log(video)
+  const videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
+
+  videoMat.backFaceCulling = false;
+  videoMat.diffuseTexture = videoTexture;
+  videoMat.emissiveColor = BABYLON.Color3.White();
+  plane.material = videoMat;
+  plane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
+
+  const htmlVideo = videoTexture.video;
+  htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  htmlVideo.setAttribute('playsinline', 'true');
+  htmlVideo.setAttribute('muted', 'true');
+  htmlVideo.setAttribute('autoplay', 'false');
+
+  return videoTexture;
+}
+

@@ -1,6 +1,7 @@
 import { CameraController } from '../camera/camera-controller';
 import { VideoStreamController } from '../video-stream/video-stream-controller';
 import { canvas } from '../util/canvas-utils';
+import { GUIController } from '../gui/gui-controller';
 
 /** Singleton class which manages the engine */
 export class EngineController {
@@ -16,6 +17,7 @@ export class EngineController {
     let [engine, scene] = this.initEngine();
     this.initCamera(scene, canvas);
     this.initVideoStream(scene, engine);
+    this.initGUI(scene);
   }
 
   initEngine() {
@@ -54,6 +56,11 @@ export class EngineController {
     cameraController.initCamera(scene, canvas);
   }
 
+  initGUI(scene) {
+    let guiController = new GUIController();
+    guiController.initGUI(scene);
+  }
+
   createDefaultEngine() { 
     return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); 
   }
@@ -71,15 +78,15 @@ export class EngineController {
   }
 
   addBlenderLevel(scene) {
-    const blenderPath = 'http://localhost:8080/blender/';
-    BABYLON.SceneLoader.Append(
-      blenderPath,
-      'TVroom.babylon',
-      scene, function (_) {
-        console.log('Blender level successfully loaded!');
-        scene.checkCollisions = true;
-      }
-    );
+    // const blenderPath = 'http://localhost:8080/blender/';
+    // BABYLON.SceneLoader.Append(
+    //   blenderPath,
+    //   'TVroom.babylon',
+    //   scene, function (_) {
+    //     console.log('Blender level successfully loaded!');
+    //     scene.checkCollisions = true;
+    //   }
+    // );
 
     // with assets manager
     // var assetsManager = new BABYLON.AssetsManager(scene);
