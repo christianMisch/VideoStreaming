@@ -3,25 +3,10 @@ export class VideoStreamController {
   initVideoStream(scene, engine) {
     this.appendVideoElements();
     // This is where you create and manipulate meshes
-    var myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
+    const myPlane = BABYLON.MeshBuilder.CreatePlane("myPlane", { width: 5.1, height: 3 }, scene);
     myPlane.rotate(BABYLON.Axis.X, Math.PI, BABYLON.Space.WORLD);
 
-    // Video material
-    var videoMat = new BABYLON.StandardMaterial("textVid", scene);
-    var video = document.querySelector('video');
-    var videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
-
-    videoMat.backFaceCulling = false;
-    videoMat.diffuseTexture = videoTexture;
-    videoMat.emissiveColor = BABYLON.Color3.White();
-    myPlane.material = videoMat;
-    myPlane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
-
-    var htmlVideo = videoTexture.video;
-    htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
-    htmlVideo.setAttribute('playsinline', 'true');
-    htmlVideo.setAttribute('muted', 'true');
-    htmlVideo.setAttribute('autoplay', 'false');
+    const videoTexture = this.playVideo(0, myPlane, scene)
 
     videoTexture.onLoadObservable.add(function () {
       engine.hideLoadingUI();
@@ -74,20 +59,44 @@ export class VideoStreamController {
     const script = $('<script>').attr('src', url);
     $('head').append(script);
 
-    // let activeVideoIdx = 1;
-
-    // engine.displayLoadingUI();
     const stream1 = 'http://localhost:8080/playlist.mpd';
     const stream2 = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
-    // const stream3 = 'https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestARD.mpd';
-    // const stream4 = 'https://irtdashreference-i.akamaihd.net/dash/live/901161/bfs/manifestBR.mpd';
+    const stream3 = 'http://hrdash-i.akamaihd.net/dash/live/265226/hrfernsehen/manifest.mpd';
+    const stream4 = 'http://streaming.austria24.tv:1935/live/mp4:stream_720p/manifest.mpd';
 
     const video1 = $('<video data-dashjs-player autoplay src="' + stream1 + '"></video>');
     const video2 = $('<video data-dashjs-player src="' + stream2 + '"></video>');
+    const video3 = $('<video data-dashjs-player src="' + stream3 + '"></video>');
+    const video4 = $('<video data-dashjs-player src="' + stream4 + '"></video>');
+    
+    const videos = [video1, video2, video3, video4];
+    for (let idx in videos) {
+      $('body').append(videos[idx]);
+    }
 
-    $('body').append(video1);
-    $('body').append(video2);
-    console.log('Adding HTML video element');
+    console.log('Adding HTML video elements');
+  }
+
+  playVideo(idx, plane ,scene) {
+    // Video material
+    const videoMat = new BABYLON.StandardMaterial("textVid", scene);
+    const video = $('video')[idx];
+    console.log(video)
+    const videoTexture = new BABYLON.VideoTexture('video', video, scene, true, true);
+
+    videoMat.backFaceCulling = false;
+    videoMat.diffuseTexture = videoTexture;
+    videoMat.emissiveColor = BABYLON.Color3.White();
+    plane.material = videoMat;
+    plane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
+
+    const htmlVideo = videoTexture.video;
+    htmlVideo.setAttribute('webkit-playsinline', 'webkit-playsinline');
+    htmlVideo.setAttribute('playsinline', 'true');
+    htmlVideo.setAttribute('muted', 'true');
+    htmlVideo.setAttribute('autoplay', 'false');
+
+    return videoTexture;
   }
 
 }
