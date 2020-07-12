@@ -78,15 +78,15 @@ export class EngineController {
   }
 
   addBlenderLevel(scene) {
-    // const blenderPath = 'http://localhost:8080/blender/';
-    // BABYLON.SceneLoader.Append(
-    //   blenderPath,
-    //   'TVroom.babylon',
-    //   scene, function (_) {
-    //     console.log('Blender level successfully loaded!');
-    //     scene.checkCollisions = true;
-    //   }
-    // );
+    const blenderPath = 'http://localhost:8080/blender/';
+    BABYLON.SceneLoader.Append(
+      blenderPath,
+      'TVroom.babylon',
+      scene, function (_) {
+        console.log('Blender level successfully loaded!');
+        scene.checkCollisions = true;
+      }
+    );
 
     // with assets manager
     // var assetsManager = new BABYLON.AssetsManager(scene);
