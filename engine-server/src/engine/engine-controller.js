@@ -17,7 +17,7 @@ export class EngineController {
     let [engine, scene] = this.initEngine();
     this.initCamera(scene, canvas);
     this.initVideoStream(scene, engine);
-    this.initGUI(scene);
+    this.initGUI();
   }
 
   initEngine() {
@@ -87,12 +87,5 @@ export class EngineController {
         scene.checkCollisions = true;
       }
     );
-
-    // with assets manager
-    // var assetsManager = new BABYLON.AssetsManager(scene);
-    // var blenderTask = assetsManager.addMeshTask('blender level', '', blenderPath, 'TVroom.babylon');
-    // blenderTask.onSuccess = function(task) { console.log('success', task) };
-    // blenderTask.onError = function(task, message, exception) { console.log('error', task, message, exception) };
-    // assetsManager.load();
   }
 }

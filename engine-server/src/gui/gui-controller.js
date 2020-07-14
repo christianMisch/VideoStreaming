@@ -4,10 +4,9 @@ export class GUIController {
 
   constructor() {
     this.videoController = new VideoStreamController();
-    console.log('gui', this.videoController)
   }
   
-  initGUI(scene) {
+  initGUI() {
     const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('UI');
 
     var grid = new BABYLON.GUI.Grid();    
@@ -25,7 +24,6 @@ export class GUIController {
     button.color = 'white';
     button.background = 'grey';
     button.onPointerUpObservable.add(() => {
-      console.log('channel btn', this.videoController)
       let currChannelIdx = this.videoController.currVideoIdx;
       const numOfChannels = this.videoController.numOfChannels;
       if (currChannelIdx === numOfChannels-1) {
