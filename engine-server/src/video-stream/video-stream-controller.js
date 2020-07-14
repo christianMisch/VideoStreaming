@@ -1,3 +1,4 @@
+/** Singleton class which manages the video streaming */
 export class VideoStreamController {
 
   constructor() {
@@ -24,47 +25,9 @@ export class VideoStreamController {
     videoTexture.onLoadObservable.add(function () {
       engine.hideLoadingUI();
     });
-
-    let isRunning = true;
-
-    this.scene.onPointerUp = function () {
-      const htmlVideo = $('video')[this.currVideoIdx];
-      // activeVideoIdx++;
-      // if (activeVideoIdx === 1) {
-
-      // } else if (activeVideoIdx === 2) {
-
-      // } else {
-
-      // }
-      // if (isRunning) {
-      //   htmlVideo.pause();
-      //   isRunning = false;
-      // } else {
-      //   videoMat.diffuseTexture = videoTexture;
-      //   videoMat.emissiveColor = BABYLON.Color3.White();
-      //   htmlVideo.play();
-      //   isRunning = true;
-      // }
-    }
-
-    // var plane = BABYLON.Mesh.CreatePlane("sphere1", 7, scene);
-    // plane.rotation.z = Math.PI;
-
-    //   // Move the sphere upward 1/2 its height
-    //   plane.position.y = 1;
-
-    // var mat = new BABYLON.StandardMaterial("mat", scene);
-    //   mat.diffuseColor = BABYLON.Color3.White();
-
-    // BABYLON.VideoTexture.CreateFromWebCam(scene, function (videoTexture) {
-    //   mat.emissiveTexture = videoTexture;
-    //   plane.material = mat;
-    // }, { maxWidth: 256, maxHeight: 256 });
   }
 
   appendVideoElements() {
-
     const stream1 = 'http://localhost:8080/playlist.mpd';
     const stream2 = 'http://www.bok.net/dash/tears_of_steel/cleartext/stream.mpd';
     const stream3 = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
@@ -92,18 +55,15 @@ export class VideoStreamController {
     $('body').append($('<video/>'));
 
     const url = urlObject.url;
-    console.log('url', url)
     const player = dashjs.MediaPlayer().create();
     player.initialize($('video')[0], url, true);
     
     this.isWebcamEnabled = false;
-    console.log('playVideo', idx);
     this.currVideoIdx = idx;
     this.myPlane.position = new BABYLON.Vector3(-0.2, 5.23, 5.37);
     // Video material
     this.videoMat = new BABYLON.StandardMaterial("textVid", this.scene);
     const video = $('video')[0];
-    console.log(video)
     const videoTexture = new BABYLON.VideoTexture('video', video, this.scene, true, true);
 
     this.videoMat.backFaceCulling = false;

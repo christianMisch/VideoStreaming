@@ -67,9 +67,9 @@ export class EngineController {
 
   createScene(engine) {
     // Create the scene space
-    var scene = new BABYLON.Scene(engine);
+    const scene = new BABYLON.Scene(engine);
     // Add lights to the scene
-    var light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
+    const light = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -1.5, 0), scene);
     // Add blender level to the scene
     this.addBlenderLevel(scene);
     // Enable Collisions
