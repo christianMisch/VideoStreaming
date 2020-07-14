@@ -107,16 +107,13 @@ export class VideoStreamController {
     htmlVideo.setAttribute('playsinline', 'true');
     htmlVideo.setAttribute('muted', 'true');
     htmlVideo.setAttribute('autoplay', 'true');
-    htmlVideo.setAttribute('crossorigin', 'anonymous');
-    // htmlVideo.crossOrigin = 'anonymous';
-    var playPromise = htmlVideo.play();
+    htmlVideo.setAttribute('controls', 'true');
+    const playPromise = htmlVideo.play();
     if (playPromise !== undefined) {
       playPromise.then(function() {
-        // Automatic playback started!
         console.log('Automatic playback started!')
       }).catch(function(error) {
         console.log('Automatic playback failed.')
-        // Automatic playback failed.
         // Show a UI element to let the user manually start playback.
       });
     }
